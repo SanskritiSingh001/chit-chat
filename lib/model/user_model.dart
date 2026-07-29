@@ -4,7 +4,7 @@ class UserModel {
   final String displayName;
   final String photoURL;
   final bool isOnline;
-  final DateTime lastSeen ;
+  final DateTime lastSeen;
   final DateTime createdAt;
 
   UserModel({
@@ -14,30 +14,37 @@ class UserModel {
     this.photoURL = "",
     this.isOnline = false,
     required this.lastSeen,
-    required this.createdAt
+    required this.createdAt,
   });
-  Map<String , dynamic> toMap(){
+
+  Map<String, dynamic> toMap() {
     return {
-      'id':id,
-      'email':email ,
+      'id': id,
+      'email': email,
       'displayName': displayName,
       'photoURL': photoURL,
       'isOnline': isOnline,
-      'lastSeen': lastSeen,
-      'createdAt':createdAt ,
+      'lastSeen': lastSeen.millisecondsSinceEpoch,
+      'createdAt': createdAt.millisecondsSinceEpoch,
     };
   }
-  static UserModel fromMap(Map<String,dynamic>map){
+
+  factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-        id: map['id']?? '',
-        email: map['email']?? '',
-        displayName: map['displayName']?? '',
-        photoURL: map['photoURL']?? '',
-        isOnline: map['isOnline']?? '',
-        lastSeen: DateTime.fromMicrosecondsSinceEpoch(map['lastSeen'] ?? 0),
-        createdAt: DateTime.fromMicrosecondsSinceEpoch(map['createAt'] ?? 0),
+      id: map['id'] ?? '',
+      email: map['email'] ?? '',
+      displayName: map['displayName'] ?? '',
+      photoURL: map['photoURL'] ?? '',
+      isOnline: map['isOnline'] ?? false,
+      lastSeen: DateTime.fromMillisecondsSinceEpoch(
+        map['lastSeen'] ?? 0,
+      ),
+      createdAt: DateTime.fromMillisecondsSinceEpoch(
+        map['createdAt'] ?? 0,
+      ),
     );
   }
+
   UserModel copyWith({
     String? id,
     String? email,
@@ -48,13 +55,13 @@ class UserModel {
     DateTime? createdAt,
   }) {
     return UserModel(
-        id: id ?? this.id,
-        email: email ?? this.email,
-        displayName: displayName ?? this.displayName,
-        photoURL: photoURL ?? this.photoURL,
-        isOnline: isOnline ?? this.isOnline,
-        lastSeen: lastSeen ?? this.lastSeen,
-        createdAt: createdAt ?? this.createdAt
+      id: id ?? this.id,
+      email: email ?? this.email,
+      displayName: displayName ?? this.displayName,
+      photoURL: photoURL ?? this.photoURL,
+      isOnline: isOnline ?? this.isOnline,
+      lastSeen: lastSeen ?? this.lastSeen,
+      createdAt: createdAt ?? this.createdAt,
     );
   }
 }
